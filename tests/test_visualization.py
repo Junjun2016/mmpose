@@ -4,7 +4,8 @@ import mmcv
 import numpy as np
 
 from mmpose.core import (apply_bugeye_effect, apply_sunglasses_effect,
-                         imshow_bboxes, imshow_keypoints, imshow_keypoints_3d)
+                         imshow_bboxes, imshow_keypoints, imshow_keypoints_3d,
+                         imshow_mesh_3d)
 
 
 def test_imshow_keypoints():
@@ -78,3 +79,14 @@ def test_effects():
         img, pose_results, left_eye_index=1, right_eye_index=0, kpt_thr=0.5)
     _ = apply_bugeye_effect(
         img, pose_results, left_eye_index=1, right_eye_index=0, kpt_thr=0.9)
+
+
+def test_imshow_mesh():
+    vertices = np.array([[[0, 0, 0], [1, 0, 0], [0, 1, 0], [0, 0, 1]]])
+    faces = np.array([[[0, 1, 2], [0, 1, 3], [0, 2, 3], [1, 2, 3]]])
+    _ = imshow_mesh_3d(
+        img=np.zeros([224, 224, 3]),
+        vertices=vertices,
+        faces=faces,
+        camera_center=[112, 112],
+        focal_length=[5000, 5000])
